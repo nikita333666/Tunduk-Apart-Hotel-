@@ -316,6 +316,36 @@ img {
     font-weight: 300;
 }
 
+/* Map Section Styles */
+#location {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+#location .container {
+    margin-bottom: 40px;
+}
+
+#map {
+    height: 50vh; /* 50% of the viewport height */
+    width: 100%;
+    z-index: 1; /* Ensure map is interactable but below header */
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: 8px;
+}
+
+.leaflet-popup-content {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+.leaflet-popup-content b {
+    font-weight: 600;
+    color: var(--dark-brown-color);
+}
+
 /* Consultation Section */
 .consultation-grid {
     display: grid;
