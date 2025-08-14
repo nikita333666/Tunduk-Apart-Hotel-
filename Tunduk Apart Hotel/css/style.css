@@ -1,10 +1,70 @@
 :root {
-    --primary-color: #5D9CEC; /* Blue */
-    --secondary-color: #C89F64; /* Ochre/Tan */
-    --dark-color: #212A3E; /* Dark Blue/Black for text */
-    --light-color: #F4F2ED; /* Light Beige for background */
-    --brown-color: #5C4033; /* Brown for headings */
-    --dark-brown-color: #4A2E2A; /* Darker Brown */
+    --primary-color: #0b385f;
+    --primary-accent: #196a9b;
+    --secondary-color: #e0c096;
+    --light-color: #fdf9f3;
+    --dark-color: #1c1c1c;
+    --dark-blue: #052842;
+    --heading-font: 'Handil Pro Medium', 'Montserrat', sans-serif;
+    --body-font: 'Montserrat', sans-serif;
+    
+    /* Animation variables */
+    --animation-duration: 0.6s;
+    --animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animation Classes */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all var(--animation-duration) var(--animation-easing);
+}
+
+.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.animate-fade-in {
+    opacity: 0;
+    transition: opacity var(--animation-duration) var(--animation-easing);
+}
+
+.animate-fade-in.animate-in {
+    opacity: 1;
+}
+
+.animate-slide-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all var(--animation-duration) var(--animation-easing);
+}
+
+.animate-slide-left.animate-in {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.animate-slide-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all var(--animation-duration) var(--animation-easing);
+}
+
+.animate-slide-right.animate-in {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.animate-scale {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all var(--animation-duration) var(--animation-easing);
+}
+
+.animate-scale.animate-in {
+    opacity: 1;
+    transform: scale(1);
 }
 
 /* Reset and Base Styles */
@@ -19,6 +79,7 @@ html {
 }
 
 body {
+    overflow-x: hidden; /* Предотвращает горизонтальную прокрутку */
     font-family: 'Montserrat', sans-serif;
     line-height: 1.6;
     color: var(--dark-color);
@@ -70,7 +131,7 @@ img {
 
 
 .logo img {
-    max-height: 60px;
+    max-height: 75px; /* Увеличил высоту лого */
     width: auto;
 }
 
@@ -114,6 +175,43 @@ img {
 
 .main-nav a:hover::after {
     width: 100%;
+}
+
+.header-contacts {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-socials {
+    display: flex;
+    gap: 10px;
+}
+
+.header-socials a svg {
+    color: #0b385f;
+    transition: color 0.3s ease;
+}
+
+.header-socials a:hover svg {
+    color: #196a9b;
+}
+
+.header-phone-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.header-phone {
+    font-weight: 600; 
+    font-size: 18px;
+}
+
+.work-schedule {
+    font-size: 14px;
+    color: #6c757d;
+    white-space: nowrap;
 }
 
 
@@ -160,15 +258,33 @@ img {
     text-decoration: none;
     border-radius: 5px;
     font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: all 0.3s var(--animation-easing);
     border: none;
     cursor: pointer;
     display: inline-block;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
 }
 
 .btn:hover {
     background-color: #4a8ad8;
     transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
 .btn.btn-secondary {
@@ -180,7 +296,7 @@ img {
 }
 
 /* Responsive Header */
-@media (max-width: 1600px) {
+@media (max-width: 1280px) { 
     .header .container {
         justify-content: space-between !important; /* On mobile, push menu toggle to the right */
         gap: 0;
@@ -199,6 +315,7 @@ img {
         justify-content: flex-start; /* Align items to the top */
         align-items: center;
         padding: 100px 0 0; /* Add padding top, remove side padding */
+        overflow-y: auto; /* Добавил прокрутку */
         transition: right 0.4s ease-in-out;
         gap: 0; /* Remove gap, will be handled by padding */
     }
@@ -234,6 +351,44 @@ img {
         width: 100%;
     }
 
+
+    @media (max-width: 1280px) {
+        .main-nav li.header-contacts {
+            padding: 0px !important; /* Полностью убираем отступы li */
+            margin: 0px !important; /* Полностью убираем внешние отступы */
+            border-bottom: 1px solid #e0e0e0 !important;
+            min-height: auto !important; /* Убираем минимальную высоту */
+            height: auto !important; /* Автоматическая высота */
+            line-height: 1 !important; /* Минимальная высота строки */
+        }
+    }
+
+    .main-nav .header-contacts {
+        display: flex !important; /* Устанавливаем flex-контейнер */
+        flex-direction: column !important; /* Элементы в столбец */
+        align-items: center !important; /* Центрируем по горизонтали */
+        justify-content: center !important; /* Центрируем по вертикали */
+        gap: 3px !important; /* Минимальный отступ между иконками и телефоном */
+        padding: 0 !important; /* Убираем все внутренние отступы */
+        margin: 0 !important; /* Убираем все внешние отступы */
+    }
+
+    .main-nav .header-contacts > div {
+        margin: 0 !important; /* Убираем все внешние отступы у дочерних блоков */
+    }
+
+    .main-nav .header-socials {
+        margin-bottom: 0 !important; /* Убираем отступ снизу у иконок */
+    }
+
+    .main-nav .header-phone-block {
+        margin-top: -20px !important; /* Поднимаем телефон максимально высоко */
+        margin-bottom: 0 !important; /* Убираем отступ снизу */
+        align-items: center !important; /* Центрируем содержимое */
+        transform: translateY(-24px) !important; /* Максимально поднимаем через transform */
+        position: relative !important; /* Для корректной работы transform */
+    }
+
     /* Style for the button's container li */
     .main-nav li:last-child {
         border-bottom: none;
@@ -257,6 +412,8 @@ img {
 
     .menu-toggle {
         display: block;
+        position: relative;
+        right: 50px;
     }
 
     .menu-toggle.active .hamburger {
@@ -276,44 +433,111 @@ img {
 
 /* Hero Section */
 .hero {
-    background: url('../изображения/TUNDUK 5 (1)-изображения-5.jpg') no-repeat center center/cover;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('../изображения/cam001.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: white;
-    text-align: center;
-    padding: 150px 0;
+    text-align: center; 
+    padding: 120px 0;
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Центрируем контент */
     align-items: center;
     min-height: calc(100vh - 80px); /* Full height minus header */
 }
 
-.hero::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(33, 42, 62, 0.6);
-}
-
 .hero .container {
     position: relative;
-    z-index: 2; /* Bring container above the overlay */
+    z-index: 2;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    min-height: 500px;
+}
+
+.hero-content {
+    max-width: 800px; /* Увеличиваем ширину для центрированного контента */
+    margin: 0 auto; /* Центрируем блок */
+    padding: 0 20px; /* Добавляем боковые отступы */
 }
 
 .hero h1 {
-    color: #fff;
-    font-size: 48px;
-    margin-bottom: 20px;
+    color: var(--secondary-color); /* Золотистый цвет */
+    font-size: 52px;
+    margin-bottom: 25px;
     font-weight: 700;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    animation: heroTitleSlide 1s var(--animation-easing) 0.3s both;
 }
 
 .hero p {
     color: #fff;
-    font-size: 22px;
-    margin-bottom: 30px;
-    font-weight: 300;
+    font-size: 20px;
+    margin-bottom: 35px;
+    font-weight: 400;
+    line-height: 1.6;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    animation: heroSubtitleSlide 1s var(--animation-easing) 0.6s both;
+}
+
+.hero .btn {
+    background-color: var(--secondary-color);
+    color: var(--dark-color);
+    font-size: 18px;
+    padding: 15px 35px;
+    font-weight: 600;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(224, 192, 150, 0.4);
+    transition: all 0.3s ease;
+    animation: heroButtonSlide 1s var(--animation-easing) 0.9s both;
+}
+
+/* Hero Animation Keyframes */
+@keyframes heroTitleSlide {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroSubtitleSlide {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroButtonSlide {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.hero .btn:hover {
+    background-color: #b38e56;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(224, 192, 150, 0.6);
 }
 
 /* Map Section Styles */
@@ -430,61 +654,127 @@ img {
 .construction-timeline-nav {
     display: flex;
     justify-content: center;
+    gap: 20px;
     flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+    padding: 20px 0;
 }
 
 .timeline-nav-item {
-    background-color: transparent;
-    border: 1px solid #ddd;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 2px solid transparent;
+    background-clip: padding-box;
     color: var(--dark-color);
-    padding: 8px 16px;
-    border-radius: 20px;
+    padding: 14px 28px;
+    border-radius: 25px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    text-transform: uppercase;
+    min-width: 120px;
+    text-align: center;
+}
+
+.timeline-nav-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.6s ease;
+}
+
+.timeline-nav-item:hover::before {
+    left: 100%;
 }
 
 .timeline-nav-item:hover {
-    background-color: #f0f0f0;
-    border-color: #ccc;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-color: rgba(11, 56, 95, 0.2);
 }
 
 .timeline-nav-item.active {
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-accent) 100%);
     color: #fff;
-    border-color: var(--primary-color);
+    border-color: var(--primary-accent);
+    box-shadow: 0 6px 20px rgba(11, 56, 95, 0.3);
+    transform: translateY(-2px);
+}
+
+.timeline-nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid var(--primary-color);
+}
+
+.timeline-nav-item.active:hover {
+    background: linear-gradient(135deg, var(--primary-accent) 0%, #1a7bb8 100%);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(11, 56, 95, 0.4);
 }
 
 .construction-slider {
-    max-width: 900px;
+    max-width: 950px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 
 .slider-main-view {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    transition: all 0.3s ease;
+}
+
+.slider-main-view:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18);
 }
 
 .current-stage-image {
     width: 100%;
-    height: 500px;
+    height: 520px;
     object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.5s ease;
+}
+
+.slider-main-view:hover .current-stage-image {
+    transform: scale(1.02);
 }
 
 .current-stage-date {
     position: absolute;
-    top: 20px;
-    left: 20px;
-    background-color: rgba(0, 0, 0, 0.5);
+    top: 25px;
+    left: 25px;
+    background: linear-gradient(135deg, rgba(11, 56, 95, 0.9) 0%, rgba(25, 106, 155, 0.9) 100%);
     color: #fff;
-    padding: 5px 15px;
-    border-radius: 5px;
+    padding: 12px 20px;
+    border-radius: 25px;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .slider-arrow {
@@ -540,7 +830,39 @@ img {
 
 /* Layout Modal Specific Styles */
 #layout-modal .modal-content {
+    position: relative;
     max-width: 800px; /* Wider for layout images */
+}
+
+.layout-view-toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    background-color: #e9ecef;
+    border-radius: 12px;
+    padding: 5px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.view-toggle-btn {
+    background-color: transparent;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    color: #495057;
+    border-radius: 9px;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.view-toggle-btn.active {
+    background-color: #fff;
+    color: #007bff;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
 }
 
 #layout-modal-img {
@@ -610,7 +932,7 @@ img {
     color: #aaa;
     position: absolute;
     top: 15px;
-    right: 20px;
+    right: 35px;
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
@@ -685,6 +1007,8 @@ img {
 
 .about-image img {
     width: 100%;
+    height: 250px; /* Ограничиваем высоту изображения */
+    object-fit: cover; /* Сохраняем пропорции, обрезая лишнее */
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
@@ -739,7 +1063,16 @@ img {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: 10px; /* Уменьшаем gap для более точного контроля */
+}
+
+.infra-icon {
+    display: flex;
+    align-items: flex-end; /* Выравниваем иконки по нижнему краю контейнера */
+    justify-content: center;
+    width: 80px;
+    height: 80px; /* Фиксированная высота контейнера */
+    margin-bottom: 5px; /* Единообразный отступ до текста */
 }
 
 .infra-icon svg {
@@ -747,12 +1080,18 @@ img {
     height: 64px;
     color: var(--dark-brown-color);
     stroke-width: 1;
+    flex-shrink: 0; /* Предотвращаем сжатие иконки */
 }
 
 .infrastructure-item h4 {
     font-size: 16px;
     font-weight: 500;
     color: var(--dark-color);
+    line-height: 1.4; /* Единообразная высота строки */
+    margin: 0; /* Убираем стандартные отступы */
+    padding: 0; /* Убираем стандартные отступы */
+    text-align: center; /* Центрируем текст горизонтально */
+    /* Убираем flex и align-items: center - они центрируют многострочный текст */
 }
 
 /* Map Placeholder */
@@ -1154,6 +1493,40 @@ img {
         margin-bottom: 50px;
     }
 
+    /* Центрирование инфраструктуры в мобильной версии */
+    .infrastructure-grid {
+        grid-template-columns: repeat(2, 1fr) !important; /* 2 колонки в мобильной версии */
+        gap: 30px 20px !important; /* Уменьшаем отступы */
+        justify-items: center !important; /* Центрируем элементы в ячейках */
+        align-items: center !important; /* Выравниваем по центру вертикально */
+        text-align: center !important; /* Центрируем текст */
+        max-width: 100% !important; /* Используем всю ширину */
+        margin: 0 auto !important; /* Центрируем сам грид */
+        padding: 0 10px !important; /* Добавляем небольшие боковые отступы */
+    }
+
+    .infrastructure-item {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important; /* Выравниваем по верху для единообразия */
+        text-align: center !important;
+        width: 100% !important;
+    }
+
+    /* Мобильные стили для иконок */
+    .infra-icon {
+        width: 70px !important;
+        height: 70px !important; /* Немного меньше для мобильных */
+        margin-bottom: 8px !important;
+        align-items: flex-end !important; /* Выравниваем иконки по нижнему краю */
+    }
+
+    .infra-icon svg {
+        width: 56px !important;
+        height: 56px !important; /* Немного меньше для мобильных */
+    }
+
     .footer-grid {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 30px;
@@ -1185,11 +1558,38 @@ img {
     .header .container {
         height: 70px;
     }
+    /* Мобильные стили для hero-секции */
+    .hero {
+        text-align: center !important; /* На мобильных центрируем */
+        padding: 80px 0 !important;
+        min-height: calc(100vh - 70px) !important;
+        background: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url('../изображения/cam001.jpg') !important;
+    }
+    
+    .hero .container {
+        min-height: 400px !important;
+        justify-content: center !important;
+    }
+    
+    .hero-content {
+        max-width: 100% !important;
+        padding: 0 10px !important;
+    }
+    
     .hero h1 {
-        font-size: 36px;
+        font-size: 36px !important;
+        margin-bottom: 20px !important;
+        line-height: 1.3 !important;
     }
     .hero p {
-        font-size: 18px;
+        font-size: 18px !important;
+        margin-bottom: 30px !important;
+        line-height: 1.5 !important;
+    }
+    
+    .hero .btn {
+        font-size: 16px !important;
+        padding: 12px 30px !important;
     }
     .section-title {
         font-size: 28px;

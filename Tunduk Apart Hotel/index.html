@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100" rel="stylesheet">
     <title>Tunduk Apart Hotel - Купите апартаменты в центре Бишкека</title>
     <meta name="description" content="Tunduk Apart Hotel - современный жилой комплекс премиум-класса в Бишкеке. Узнайте о преимуществах, планировках и этапах строительства.">
     <meta name="keywords" content="купить квартиру в бишкеке, апартаменты бишкек, недвижимость бишкек, Tunduk Apart Hotel, жилой комплекс">
@@ -10,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="css/style.css?v=1.2">
+        <link rel="stylesheet" href="css/style.css?v=1.4">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 
 </head>
@@ -18,7 +21,7 @@
 
     <header class="header">
         <div class="container" style="justify-content: center;">
-            <a href="#" class="logo"><img src="изображения/TUNDUK 5 (1)-изображения-5.jpg" alt="Tunduk Apart Hotel"></a>
+            <a href="#" class="logo"><img src="изображения/лого/Снимок экрана 2025-08-14 115026-no-bg-preview (carve.photos).png" alt="Tunduk Apart Hotel"></a>
             <nav class="main-nav" id="main-nav">
                 <ul>
                     <li><a href="#about">О проекте</a></li>
@@ -26,9 +29,20 @@
                     <li><a href="#infrastructure">Инфраструктура</a></li>
                     <li><a href="#construction">Этапы строительства</a></li>
                     <li><a href="#layouts">Планировки</a></li>
-                    <li><a href="#live">Прямая трансляция</a></li>
-                    <li><a href="#consultation">Консультация</a></li>
-                    <li class="header-phone-li"><a href="tel:+996557447807" class="header-phone">+996 557 447 807</a></li>
+                    <li class="header-contacts">
+                        <div class="header-socials">
+                            <a href="https://wa.me/996220707002" target="_blank" aria-label="WhatsApp">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" /><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" /></svg>
+                            </a>
+                            <a href="https://t.me/tunduk_apart_hotel" target="_blank" aria-label="Telegram">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" /></svg>
+                            </a>
+                        </div>
+                        <div class="header-phone-block">
+                            <a href="tel:+996557447807" class="header-phone">+996 (557) 447-807</a>
+                            <span class="work-schedule">Ежедневно с 09:00 до 19:00</span>
+                        </div>
+                    </li>
                     <li><button class="btn open-modal-btn" id="cta-button" data-modal="cta-modal">Получить консультацию</button></li>
                 </ul>
             </nav>
@@ -42,23 +56,25 @@
         <!-- Hero Section -->
         <section id="hero" class="hero">
             <div class="container">
-                <h1 class="hero-title">Tunduk Apart Hotel</h1>
-                <p class="hero-subtitle">Современные апартаменты в престижном районе. Ваш новый уровень комфорта.</p>
-                <a href="#layouts" class="btn btn-primary">Смотреть планировки</a>
+                <div class="hero-content">
+                    <h1 class="hero-title">TUNDUK APART HOTEL</h1>
+                    <p class="hero-subtitle">Апартаменты премиум-класса с дизайнерским ремонтом, на уровне 5 звездочного отеля готовые к жизни и доходу.</p>
+                    <a href="#layouts" class="btn btn-primary">Смотреть планировки</a>
+                </div>
             </div>
         </section>
 
         <!-- About Project Section -->
         <section id="about" class="section">
             <div class="container">
-                <h2 class="section-title">О проекте Tunduk Apart Hotel</h2>
+                <h2 class="section-title animate-on-scroll">О проекте Tunduk Apart Hotel</h2>
                 <div class="about-grid">
-                    <div class="about-image">
-                        <img src="изображения/TUNDUK 5 (1)-изображения-5.jpg" alt="О проекте Tunduk Apart Hotel">
+                    <div class="about-image animate-slide-left">
+                        <img src="изображения/cam003.jpg" alt="О проекте Tunduk Apart Hotel">
                     </div>
-                    <div class="about-content">
-                        <p><strong>Наша миссия</strong> — создавать не просто квадратные метры, а пространства для счастливой и комфортной жизни. Мы строим дома, в которых хочется жить, работать и отдыхать.</p>
-                        <p>Tunduk Apart Hotel — это современный жилой комплекс, который сочетает в себе инновационные технологии, высокое качество строительства и уникальное расположение. Мы продумали каждую деталь, чтобы обеспечить максимальный комфорт для наших жителей.</p>
+                    <div class="about-content animate-slide-right">
+                        <p><strong>Tunduk Apart Hotel</strong> — апарт-отель премиум-класса на берегу Иссык-Куля от интегрированного девелопера Tunduk Invest, который строит со своим ген-подрядом  и на собственные деньги, а не на деньги дольщиков.</p>
+                        <p>Каждый апартамент сдается с дизайнерским ремонтом, шумоизоляцией, тёплым полом и собственной верандой. Проект сочетает уют, природу и продуманную инфраструктуру — всё для жизни, отдыха и стабильного дохода от аренды.</p>
                     </div>
                 </div>
             </div>
@@ -67,43 +83,61 @@
         <!-- Advantages Section -->
         <section id="advantages" class="section">
             <div class="container">
-                <h2 class="section-title">Наши преимущества</h2>
-                <p class="section-subtitle" style="font-size: 20px;">«Всё своё — собственный карьер, материалы, локация, сервис»</p>
+                <h2 class="section-title animate-on-scroll">Наши преимущества</h2>
+                <p class="section-subtitle animate-fade-in" style="font-size: 20px;">«Всё своё — собственный карьер, материалы, локация, сервис»</p>
                 <div class="advantages-list">
                     <div class="advantage-row">
-                        <div class="advantage-content">
+                        <div class="advantage-content animate-slide-left">
                             <h3>Уникальная локация</h3>
-                            <p>Расположение рядом с парковой зоной обеспечивает свежий воздух и прекрасные виды. Наслаждайтесь тишиной и спокойствием, находясь в непосредственной близости от центра города.</p>
+                            <p>Tunduk Apart Hotel расположен в центре Чолпон-Аты — на
+
+                                первой береговой линии
+                                
+                                у мягкого песчаного пляжа и рядом с Президентским парком. Благодаря тёплому микроклимату в этой зоне,
+                                
+                                курортный сезон здесь длится с мая по сентябрь
+                                
+                                — дольше, чем в большинстве других локаций на Иссык-Куле. Это делает проект особенно привлекательным как для отдыха, так и для стабильной сдачи в аренду.</p>
                         </div>
-                        <div class="advantage-image">
-                            <img src="изображения/TUNDUK 5 (1)-изображения-5.jpg" alt="Уникальная локация">
+                        <div class="advantage-image animate-slide-right">
+                            <img src="изображения/cam2_pt.jpg" alt="Уникальная локация">
                         </div>
                     </div>
                     <div class="advantage-row">
-                        <div class="advantage-image">
-                            <img src="изображения/TUNDUK 5 (1)-изображения-5.jpg" alt="Собственные ресурсы">
+                        <div class="advantage-image animate-slide-left">
+                            <img src="изображения/cam007.jpg" alt="Собственные ресурсы">
                         </div>
-                        <div class="advantage-content">
+                        <div class="advantage-content animate-slide-right">
                             <h3>Собственные ресурсы</h3>
-                            <p>Мы используем материалы с собственного карьера, что гарантирует высокое качество, надежность и долговечность наших объектов. Это позволяет нам контролировать все этапы строительства.</p>
+                            <p>Проект полностью реализуется девелопером
+
+                                Tunduk Invest
+                                
+                                — со своими карьером, ЖБИ, техникой и строительными бригадами. Мы не привлекаем сторонних подрядчиков, что гарантирует контроль качества и сроков.</p>
                         </div>
                     </div>
                     <div class="advantage-row">
-                        <div class="advantage-content">
+                        <div class="advantage-content animate-slide-left">
                             <h3>Высокий сервис</h3>
-                            <p>Собственная сервисная служба позаботится о вашем комфорте после заселения. Мы предлагаем широкий спектр услуг, от уборки до консьерж-сервиса, чтобы вы могли наслаждаться жизнью без забот.</p>
+                            <p>Все апартаменты сдаются с дизайнерским ремонтом, шумоизоляцией и собственной верандой. Управляющая компания обеспечивает комфортное проживание, сдачу в аренду и сервис уровня пятизвездочного отеля.</p>
                         </div>
-                        <div class="advantage-image">
-                            <img src="изображения/TUNDUK 5 (1)-изображения-5.jpg" alt="Высокий сервис">
+                        <div class="advantage-image animate-slide-right">
+                            <img src="изображения/1_View08.jpg" alt="Высокий сервис">
                         </div>
                     </div>
                     <div class="advantage-row">
-                        <div class="advantage-image">
-                            <img src="изображения/TUNDUK 5 (1)-изображения-5.jpg" alt="Инвестиционная привлекательность">
+                        <div class="advantage-image animate-slide-left">
+                            <img src="изображения/2_View01.jpg" alt="Инвестиционная привлекательность">
                         </div>
-                        <div class="advantage-content">
+                        <div class="advantage-content animate-slide-right">
                             <h3>Инвестиционная привлекательность</h3>
-                            <p>Апартаменты в Tunduk Apart Hotel — это не только комфортное жилье, но и выгодная инвестиция. Растущий спрос на недвижимость в этом районе обеспечивает стабильный прирост стоимости.</p>
+                            <p>Tunduk Apart Hotel — это всесезонный курорт с высоким спросом на аренду. Благодаря
+
+                                собственным термальным источникам
+                                
+                                , комфортный отдых возможен не только летом, но и в межсезонье и зимой. Это значит, что ваш апартамент работает и приносит доход круглый год. Профессиональная управляющая компания полностью берёт на себя обслуживание и сдачу в аренду.
+                                
+                                Генплан с возможностью скачать.</p>
                         </div>
                     </div>
                 </div>
@@ -120,7 +154,7 @@
         <!-- Infrastructure Section -->
         <section id="infrastructure" class="section">
             <div class="container">
-                <h2 class="section-title">Инфраструктура комплекса</h2>
+                <h2 class="section-title animate-on-scroll">Инфраструктура</h2>
                 <div class="infrastructure-grid">
                     <div class="infrastructure-item">
                         <div class="infra-icon">
@@ -156,7 +190,49 @@
                         <div class="infra-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-parking-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M10 16v-8h2.667c.736 0 1.333 .672 1.333 1.5s-.597 1.5 -1.333 1.5h-2.667" /></svg>
                         </div>
-                        <h4>Подземный паркинг</h4>
+                        <h4>Парковка</h4>
+                    </div>
+                    <div class="infrastructure-item">
+                        <div class="infra-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-playground"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12h4" /><path d="M12 10v4" /><path d="M6 8h12l2 8H4z" /><path d="M6 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2" /><path d="M8 16v4" /><path d="M16 16v4" /></svg>
+                        </div>
+                        <h4>Детская площадка</h4>
+                    </div>
+                    <div class="infrastructure-item">
+                        <div class="infra-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-scissors"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 7m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M6 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="m8.6 8.6l10.4 10.4" /><path d="m8.6 15.4l10.4 -10.4" /></svg>
+                        </div>
+                        <h4>Салон красоты</h4>
+                    </div>
+                    <div class="infrastructure-item">
+                        <div class="infra-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-flame"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12c2 -2.96 0 -7 -1 -8c0 3.038 -1.773 4.741 -3 6c-1.226 1.26 -2 3.24 -2 5a6 6 0 1 0 12 0c0 -1.532 -1.056 -3.94 -2 -5c-1.786 3 -3.5 1 -4 -2z" /></svg>
+                        </div>
+                        <h4>Термальные источники</h4>
+                    </div>
+                    <div class="infrastructure-item">
+                        <div class="infra-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-ball-basketball"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M5.65 5.65l12.7 12.7" /><path d="M5.65 18.35l12.7 -12.7" /><path d="M12 3a9 9 0 0 0 9 9" /><path d="M3 12a9 9 0 0 1 9 9" /></svg>
+                        </div>
+                        <h4>Универсальная спортивная площадка</h4>
+                    </div>
+                    <div class="infrastructure-item">
+                        <div class="infra-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-glass-cocktail"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 21h8" /><path d="M12 15v6" /><path d="M12 5m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M5 5l14 0" /></svg>
+                        </div>
+                        <h4>Лаундж-бар на пляже</h4>
+                    </div>
+                    <div class="infrastructure-item">
+                        <div class="infra-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-coffee"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 14c.83 .642 2.077 1.017 3.5 1c1.423 .017 2.67 -.358 3.5 -1c.83 -.642 2.077 -1.017 3.5 -1c1.423 -.017 2.67 .358 3.5 1" /><path d="M8 3a2.4 2.4 0 0 0 -1 2a2.4 2.4 0 0 0 1 2" /><path d="M12 3a2.4 2.4 0 0 0 -1 2a2.4 2.4 0 0 0 1 2" /><path d="M3 10h14v5a6 6 0 0 1 -6 6h-2a6 6 0 0 1 -6 -6v-5z" /><path d="M16.746 16.726a3 3 0 1 0 .252 -5.555" /></svg>
+                        </div>
+                        <h4>Кафе</h4>
+                    </div>
+                    <div class="infrastructure-item">
+                        <div class="infra-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-wash-machine"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" /><path d="M12 14m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M8 6h.01" /><path d="M11 6h.01" /><path d="M14 6h2" /><path d="M8 14c1.333 -.667 2.667 -.667 4 0c1.333 .667 2.667 .667 4 0" /></svg>
+                        </div>
+                        <h4>Прачечная</h4>
                     </div>
                 </div>
             </div>
@@ -165,20 +241,20 @@
         <!-- Construction Stages Section -->
         <section id="construction" class="section">
             <div class="container">
-                <h2 class="section-title">Ход строительства</h2>
-                <div class="construction-slider-container">
-                    <div class="construction-timeline-nav">
+                <h2 class="section-title animate-on-scroll">Ход строительства</h2>
+                <div class="construction-slider-container animate-on-scroll">
+                    <div class="construction-timeline-nav animate-fade-in">
                         <!-- Элементы навигации будут добавляться сюда через JS -->
                     </div>
 
-                    <div class="construction-slider">
+                    <div class="construction-slider animate-scale">
                         <div class="slider-main-view">
                             <p class="current-stage-date"></p>
                             <img src="" alt="Этап строительства" class="current-stage-image">
                             <button class="slider-arrow prev-arrow">&#10094;</button>
                             <button class="slider-arrow next-arrow">&#10095;</button>
                         </div>
-                        <p class="current-stage-description"></p>
+                        <p class="current-stage-description animate-fade-in"></p>
                     </div>
                 </div>
             </div>
@@ -201,31 +277,48 @@
         <!-- Layouts Section -->
         <section id="layouts" class="section">
             <div class="container">
-                <h2 class="section-title">Планировки</h2>
-                <p class="section-subtitle">Апарт отель Tunduk предлагает разнообразные планировки, включая одно-, двух- и трехкомнатные апартаменты с большими террасами, обеспечивающие комфорт и стиль на берегу Иссык-Куля.</p>
+                <h2 class="section-title animate-on-scroll">Планировки</h2>
+                <p class="section-subtitle animate-fade-in">Tunduk Apart Hotel предлагает широкий выбор форматов:
+
+                    однокомнатные, двухкомнатные, трёхкомнатные и увеличенные трёшки.
+                    
+                    Во всех апартаментах предусмотрена собственная веранда — идеальное пространство для отдыха с видом на Иссык-Куль и горы.
+                    
+                    Квартиры сдаются с дизайнерским ремонтом «под ключ», с возможностью усовершенствовать детали ремонта под свой вкус.</p>
                 <div class="layout-list">
                     <div class="layout-row">
-                        <div class="layout-image" style="margin: 0 auto;">
-                            <img src="изображения/TUNDUK 5 (1)-изображения-5.jpg" alt="1-комнатные апартаменты">
+                        <div class="layout-image animate-slide-left" style="margin: 0 auto;">
+                            <img src="изображения/планировки/Апартамент 68 м2.jpg" alt="1-комнатные апартаменты" id="layout-img-1">
                         </div>
-                        <div class="layout-details">
+                        <div class="layout-details animate-slide-right">
                             <h3>1-комнатные апартаменты</h3>
-
                             <ul class="layout-specs">
                                 <li>Спальня - 9,44 м²</li>
                                 <li>Кухня-гостиная - 12,08 м²</li>
                                 <li>Ванна - 3,64 м²</li>
                                 <li>Прихожая - 4,71 м²</li>
-                                <li><strong>Итог: 29,86 м²</strong></li>    
-                                <button class="btn open-layout-modal-btn" style="border-radius: 5px; margin-top: 14px; width: 260px; height: 50px;" data-modal-id="layout-modal" data-img-src="изображения/TUNDUK 5 (1)-изображения-6.jpg" data-title="1-комнатные апартаменты (29,86 м²)" data-desc="Уютные и функциональные однокомнатные апартаменты, идеально подходящие для одного человека или молодой пары. Продуманная планировка позволяет максимально эффективно использовать каждый квадратный метр." data-pdf-src="#">Смотреть планировку</button>
-                            </ul>
+                                <li><strong>Итог: 29,86 м²</strong></li>   
+                                
+                                <button class="btn open-layout-modal-btn" 
+                                style="border-radius: 5px; margin-top: 14px; width: 260px; height: 50px;" 
+                                data-modal-id="layout-modal" 
+                                data-layout-id="1" 
+                                data-img-src="изображения/планировки/Апартамент 68 м2.jpg"
+                                data-img-src-2d="изображения/планировки/Апартамент 68 м2.jpg" 
+                                data-img-src-3d="изображения/планировки/мал.номер 27,94кв.м.-изображения-0.jpg" 
+                                data-title="1-комнатные апартаменты (29,86 м²)" 
+                                data-desc="Уютные и функциональные однокомнатные апартаменты, идеально подходящие для одного человека или молодой пары. Продуманная планировка позволяет максимально эффективно использовать каждый квадратный метр." 
+                                data-pdf-src="#">
+                            Смотреть планировку
+                        </button>            
+                                     </ul>   
                         </div>
                     </div>
                     <div class="layout-row">
-                        <div class="layout-image" style="margin: 0 auto;">
-                            <img src="изображения/TUNDUK 5 (1)-изображения-5.jpg" alt="2-комнатные студийные апартаменты">
+                        <div class="layout-image animate-slide-left" style="margin: 0 auto;">
+                            <img src="изображения/планировки/Апартамент 68 м2.jpg" alt="2-комнатные студийные апартаменты" id="layout-img-2">
                         </div>
-                        <div class="layout-details">
+                        <div class="layout-details animate-slide-right">
                             <h3>2-комнатные студийные апартаменты</h3>
 
                             <ul class="layout-specs">
@@ -234,15 +327,25 @@
                                 <li>Ванна - 3,73 м²</li>
                                 <li>Прихожая - 4,34 м²</li>
                                 <li><strong>Итог: 47,06 м²</strong></li>
-                                <button class="btn open-layout-modal-btn layout-btn-2" style="border-radius: 5px; margin-top: 14px; width: 260px; height: 50px;" data-modal-id="layout-modal" data-img-src="изображения/TUNDUK 5 (1)-изображения-1.jpg" data-title="2-комнатные студийные апартаменты (47,06 м²)" data-desc="Просторные апартаменты с объединенной кухней-гостиной и отдельной спальней. Отличный вариант для тех, кто ценит комфорт и открытое пространство." data-pdf-src="#">Смотреть планировку</button>
-                            </ul>
+                                <button class="btn open-layout-modal-btn" 
+                                    style="border-radius: 5px; margin-top: 14px; width: 260px; height: 50px;" 
+                                    data-modal-id="layout-modal" 
+                                    data-layout-id="2" 
+                                    data-img-src="изображения/планировки/больш.номер 57,88кв.м-изображения-0.jpg"
+                                    data-img-src-2d="изображения/планировки/больш.номер 57,88кв.м-изображения-0.jpg" 
+                                    data-img-src-3d="изображения/планировки/больш.номер 57,88кв.м-изображения-1.jpg" 
+                                    data-title="2-комнатные студийные апартаменты (47,06 м²)" 
+                                    data-desc="Просторные апартаменты с двумя комнатами и студийной планировкой. Отличный вариант для семьи или тех, кто ценит комфорт и пространство." 
+                                    data-pdf-src="#">
+                                Смотреть планировку
+                            </button></ul>
                         </div>
                     </div>
                     <div class="layout-row" >
-                        <div class="layout-image" style="margin: 0 auto;">
-                            <img src="изображения/TUNDUK 5 (1)-изображения-5.jpg" alt="3-комнатные апартаменты с террасой">
+                        <div class="layout-image animate-slide-left" style="margin: 0 auto;">
+                            <img src="изображения/планировки/Апартамент 68 м2.jpg" alt="3-комнатные апартаменты с террасой" id="layout-img-3">
                         </div>
-                        <div class="layout-details">
+                        <div class="layout-details animate-slide-right">
                             <h3>3-комнатные апартаменты с террасой</h3>
 
                             <ul class="layout-specs">
@@ -252,15 +355,25 @@
                                 <li>Ванна - 3,43 м²</li>
                                 <li>Терраса - 21,01 м²</li>
                                 <li><strong>Итог: 90,88 м²</strong></li>
-                                <button class="btn open-layout-modal-btn layout-btn-3" style="border-radius: 5px; margin-top: 14px; width: 260px; height: 50px;" data-modal-id="layout-modal" data-img-src="изображения/TUNDUK 5 (1)-изображения-2.jpg" data-title="3-комнатные апартаменты с террасой (90,88 м²)" data-desc="Шикарные трехкомнатные апартаменты с большой террасой, где можно наслаждаться свежим воздухом и прекрасными видами. Идеально для большой семьи." data-pdf-src="#">Смотреть планировку</button>
-                            </ul>
+                                <button class="btn open-layout-modal-btn" 
+                                style="border-radius: 5px; margin-top: 14px; width: 260px; height: 50px;" 
+                                data-modal-id="layout-modal" 
+                                data-layout-id="3" 
+                                data-img-src="изображения/планировки/Апартамент 68 м2.jpg"
+                                data-img-src-2d="изображения/планировки/Апартамент 68 м2.jpg" 
+                                data-img-src-3d="изображения/планировки/мал.номер 27,94кв.м.-изображения-0.jpg" 
+                                data-title="1-комнатные апартаменты (29,86 м²)" 
+                                data-desc="Уютные и функциональные однокомнатные апартаменты, идеально подходящие для одного человека или молодой пары. Продуманная планировка позволяет максимально эффективно использовать каждый квадратный метр." 
+                                data-pdf-src="#">
+                            Смотреть планировку
+                        </button>                                   </ul>
                         </div>
                     </div>
                     <div class="layout-row">
-                        <div class="layout-image" style="margin: 0 auto;">
-                            <img src="изображения/TUNDUK 5 (1)-изображения-5.jpg" alt="3-комнатные апартаменты с террасой">
+                        <div class="layout-image animate-slide-left" style="margin: 0 auto;">
+                            <img src="изображения/планировки/Апартамент 68 м2.jpg" alt="3-комнатные апартаменты с террасой" id="layout-img-4">
                         </div>
-                        <div class="layout-details">
+                        <div class="layout-details animate-slide-right">
                             <h3>3-комнатные апартаменты с террасой</h3>
 
                             <ul class="layout-specs">
@@ -270,8 +383,18 @@
                                 <li>Гостиная - 45,74 м²</li>
                                 <li>Терраса - 27,63 м²</li>
                                 <li><strong>Итог: 150,88 м²</strong></li>
-                                <button class="btn open-layout-modal-btn layout-btn-4" style="border-radius: 5px; margin-top: 14px; width: 260px; height: 50px;" data-modal-id="layout-modal" data-img-src="изображения/TUNDUK 5 (1)-изображения-3.jpg" data-title="3-комнатные апартаменты с террасой (150,88 м²)" data-desc="Роскошные апартаменты с двумя спальнями, гардеробной и огромной гостиной. Большая терраса станет вашим любимым местом для отдыха." data-pdf-src="#">Смотреть планировку</button>
-                            </ul>
+                                <button class="btn open-layout-modal-btn" 
+                                style="border-radius: 5px; margin-top: 14px; width: 260px; height: 50px;" 
+                                data-modal-id="layout-modal" 
+                                data-layout-id="4" 
+                                data-img-src="изображения/планировки/Апартамент 68 м2.jpg"
+                                data-img-src-2d="изображения/планировки/Апартамент 68 м2.jpg" 
+                                data-img-src-3d="изображения/планировки/мал.номер 27,94кв.м.-изображения-0.jpg" 
+                                data-title="1-комнатные апартаменты (29,86 м²)" 
+                                data-desc="Уютные и функциональные однокомнатные апартаменты, идеально подходящие для одного человека или молодой пары. Продуманная планировка позволяет максимально эффективно использовать каждый квадратный метр." 
+                                data-pdf-src="#">
+                            Смотреть планировку
+                        </button>                                   </ul>
                         </div>
                     </div>
                 </div>
@@ -281,19 +404,19 @@
         <!-- Consultation Section -->
         <section id="consultation" class="section">
             <div class="container">
-                <h2 class="section-title">Получите консультацию</h2>
+                <h2 class="section-title animate-on-scroll">Получите консультацию</h2>
                 <div class="consultation-grid">
-                    <div class="manager-info">
-                        <img src="изображения/TUNDUK 5 (1)-изображения-5.jpg" alt="Менеджер по продажам" class="manager-photo">
+                    <div class="manager-info animate-slide-left">
+                        <img src="изображения/cam2_pt.jpg" alt="Менеджер по продажам" class="manager-photo">
                         <h3>Айжан Асанова</h3>
                         <p>Ваш персональный менеджер</p>
                         <a href="tel:+996557447807" class="manager-phone">+996 557 447 807</a>
                     </div>
-                    <div class="consultation-form-block">
+                    <div class="consultation-form-block animate-slide-right">
                         <p>Хотите узнать больше? Оставьте заявку и наш менеджер свяжется с вами!</p>
                         <form action="#" method="post" id="consultation-form">
                             <input type="text" name="name" placeholder="Ваше имя" required>
-                            <input type="tel" name="phone" placeholder="Ваш телефон" value="+996557447807" required>
+                            <input type="tel" name="phone" placeholder="+(996) XXX-XX-XX-XX" required>
                             <button type="submit" class="btn">Отправить заявку</button>
                         </form>
                     </div>
@@ -307,7 +430,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col footer-col-logo">
-                    <img src="изображения/TUNDUK 5 (1)-изображения-5.jpg" alt="Tunduk Apart Hotel Logo" class="footer-logo">
+                    <img src="изображения/лого/Снимок экрана 2025-08-14 160753 (1).png" alt="Tunduk Apart Hotel Logo" class="footer-logo">
                     <p>Современный жилой комплекс в сердце Бишкека.</p>
                 </div>
                 <div class="footer-col">
@@ -346,7 +469,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-                        const map = L.map('map').setView([42.6285, 77.0915], 16); // Обновленные координаты и масштаб
+            const map = L.map('map').setView([42.6285, 77.0915], 16); // Обновленные координаты и масштаб
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -368,7 +491,7 @@
             <p>Оставьте свои данные, и наш менеджер свяжется с вами в ближайшее время.</p>
             <form class="modal-form" id="cta-form" action="#" method="post">
                 <input type="text" name="name" placeholder="Ваше имя" required>
-                <input type="tel" name="phone" value="+996557447807" required>
+                <input type="tel" name="phone" placeholder="+(996) XXX-XX-XX-XX" required>
                 <button type="submit" class="btn btn-primary">Отправить</button>
             </form>
         </div>
@@ -378,6 +501,10 @@
     <div id="layout-modal" class="modal">
         <div class="modal-content">
             <span class="close-button layout-close">&times;</span>
+            <div class="layout-view-toggle">
+                <button class="view-toggle-btn active" data-view="2d">2D</button>
+                <button class="view-toggle-btn" data-view="3d">3D</button>
+            </div>
             <img id="layout-modal-img" src="" alt="Детальная планировка">
             <h3 id="layout-modal-title"></h3>
             <p id="layout-modal-desc"></p>
@@ -393,10 +520,11 @@
             <p>Оставьте свои данные, и наш менеджер свяжется с вами в ближайшее время.</p>
             <form class="modal-form" id="cta-form" action="#" method="post">
                 <input type="text" name="name" placeholder="Ваше имя" required>
-                <input type="tel" name="phone" value="+996557447807" required>
+                <input type="tel" name="phone" placeholder="+(996) XXX-XX-XX-XX" required>
                 <button type="submit" class="btn btn-primary">Отправить</button>
             </form>
         </div>
     </div>
 </body>
 </html>
+

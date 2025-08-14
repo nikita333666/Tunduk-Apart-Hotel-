@@ -45,6 +45,55 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Phone Input Mask
+    function setupPhoneInput(input) {
+        const prefix = '+996 ';
+
+        function formatPhoneNumber(value) {
+            if (!value.startsWith(prefix)) {
+                return prefix;
+            }
+
+            let numbers = value.substring(prefix.length).replace(/\D/g, '');
+            let formatted = prefix;
+
+            if (numbers.length > 0) {
+                formatted += '(' + numbers.substring(0, 3);
+            }
+            if (numbers.length >= 4) {
+                formatted += ') ' + numbers.substring(3, 6);
+            }
+            if (numbers.length >= 7) {
+                formatted += '-' + numbers.substring(6, 8);
+            }
+            if (numbers.length >= 9) {
+                formatted += '-' + numbers.substring(8, 10);
+            }
+            
+            return formatted.substring(0, prefix.length + 15); // +996 (XXX) XXX-XX-XX
+        }
+
+        input.addEventListener('input', (e) => {
+            const formatted = formatPhoneNumber(e.target.value);
+            e.target.value = formatted;
+        });
+
+        input.addEventListener('keydown', (e) => {
+            if (e.target.selectionStart < prefix.length && (e.key === 'Backspace' || e.key === 'Delete')) {
+                e.preventDefault();
+            }
+        });
+
+        // Set initial placeholder and value
+        input.placeholder = '+(996) XXX-XX-XX-XX';
+        if (!input.value) { // Only set if no value is pre-filled
+             input.value = prefix;
+        }
+    }
+
+    document.querySelectorAll('input[type="tel"]').forEach(setupPhoneInput);
+
+
     // Layout Modal Logic
     const openLayoutModalBtns = document.querySelectorAll('.open-layout-modal-btn');
     const layoutModal = document.getElementById('layout-modal');
@@ -54,13 +103,23 @@ document.addEventListener('DOMContentLoaded', function() {
         const modalTitle = document.getElementById('layout-modal-title');
         const modalDesc = document.getElementById('layout-modal-desc');
         const modalPdf = document.getElementById('layout-modal-pdf');
+        const viewToggleBtns = layoutModal.querySelectorAll('.view-toggle-btn');
+
+        let currentLayoutId = null;
+        let imgSrc2d = '';
+        let imgSrc3d = '';
 
         openLayoutModalBtns.forEach(button => {
             button.addEventListener('click', () => {
                 const imgSrc = button.dataset.imgSrc;
+                currentLayoutId = button.dataset.layoutId;
+                imgSrc2d = button.dataset['imgSrc-2d'];
+                imgSrc3d = button.dataset['imgSrc-3d'];
                 const title = button.dataset.title;
                 const desc = button.dataset.desc;
                 const pdfSrc = button.dataset.pdfSrc;
+
+
 
                 modalImg.src = imgSrc;
                 modalTitle.textContent = title;
@@ -73,7 +132,36 @@ document.addEventListener('DOMContentLoaded', function() {
                     modalPdf.style.display = 'none';
                 }
 
+                // THIS IS THE CRITICAL FIX: Reset active state on all buttons first
+                viewToggleBtns.forEach(btn => btn.classList.remove('active'));
+                // Then, set the default (2D) button to active
+                const defaultActiveButton = layoutModal.querySelector('.view-toggle-btn[data-view="2d"]');
+                if (defaultActiveButton) {
+                    defaultActiveButton.classList.add('active');
+                }
+                
                 layoutModal.style.display = 'flex';
+            });
+        });
+
+        viewToggleBtns.forEach(button => {
+            button.addEventListener('click', () => {
+                const view = button.dataset.view;
+                const mainLayoutImg = document.getElementById(`layout-img-${currentLayoutId}`);
+
+                const newSrc = (view === '2d') ? imgSrc2d : imgSrc3d;
+
+
+
+                if (newSrc) {
+                    modalImg.src = newSrc;
+                    if (mainLayoutImg) {
+                        mainLayoutImg.src = newSrc;
+                    }
+                }
+
+                viewToggleBtns.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
             });
         });
     }
@@ -157,27 +245,27 @@ document.addEventListener('DOMContentLoaded', function() {
         const stages = [
             {
                 date: "Май 2024",
-                image: "изображения/TUNDUK 5 (1)-изображения-0.jpg",
+                image: "изображения/ход1.jpg",
                 description: "Начало строительства. Подготовка площадки, завоз строительных материалов и установка ограждений."
             },
             {
                 date: "Июль 2024",
-                image: "изображения/TUNDUK 5 (1)-изображения-1.jpg",
+                image: "изображения/ход2.jpg",
                 description: "Работы по устройству фундамента. Заливка бетонной плиты и подготовка к возведению каркаса."
             },
             {
                 date: "Сентябрь 2024",
-                image: "изображения/TUNDUK 5 (1)-изображения-2.jpg",
+                image: "изображения/ход3.jpg",
                 description: "Возведение монолитного каркаса. Работы ведутся на уровне 3-го этажа."
             },
             {
                 date: "Ноябрь 2024",
-                image: "изображения/TUNDUK 5 (1)-изображения-3.jpg",
+                image: "изображения/ход4.jpg",
                 description: "Продолжение работ по возведению каркаса, начало кладочных работ на нижних этажах."
             },
             {
                 date: "Январь 2025",
-                image: "изображения/TUNDUK 5 (1)-изображения-4.jpg",
+                image: "изображения/ход5.jpg",
                 description: "Остекление. Начало монтажа оконных блоков и фасадных систем."
             }
         ];
@@ -240,4 +328,60 @@ document.addEventListener('DOMContentLoaded', function() {
         populateNav();
         updateSlider(0);
     }
+
+    // Scroll Animations
+    function initScrollAnimations() {
+        const animatedElements = document.querySelectorAll('.animate-on-scroll, .animate-fade-in, .animate-slide-left, .animate-slide-right, .animate-scale');
+        
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        animatedElements.forEach(element => {
+            observer.observe(element);
+        });
+    }
+
+    // Staggered animations for lists/grids
+    function initStaggeredAnimations() {
+        const staggeredGroups = document.querySelectorAll('.stagger-animation');
+        
+        staggeredGroups.forEach(group => {
+            const children = group.children;
+            Array.from(children).forEach((child, index) => {
+                child.style.transitionDelay = `${index * 0.1}s`;
+                child.classList.add('animate-scale');
+            });
+        });
+    }
+
+    // Smooth scroll enhancement
+    function enhanceSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    }
+
+    // Initialize all animations
+    initScrollAnimations();
+    initStaggeredAnimations();
+    enhanceSmoothScroll();
 });
