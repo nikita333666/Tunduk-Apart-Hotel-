@@ -76,6 +76,7 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: clip; /* Устраняет горизонтальный отступ */
 }
 
 body {
@@ -297,6 +298,10 @@ img {
 
 /* Responsive Header */
 @media (max-width: 1280px) { 
+    .header {
+        position: fixed; /* Закрепляем header на мобильных устройствах */
+    }
+
     .header .container {
         justify-content: space-between !important; /* On mobile, push menu toggle to the right */
         gap: 0;
