@@ -1,13 +1,187 @@
+// --- Robust Video Reels Initialization ---
+let domReady = false;
+let ytApiReady = false;
+
+// This function is called by the YouTube API script when it's loaded
+function onYouTubeIframeAPIReady() {
+    ytApiReady = true;
+    tryInitVideoReels();
+}
+
+// This function attempts to initialize the reels, but only if both DOM and API are ready
+function tryInitVideoReels() {
+    if (domReady && ytApiReady) {
+        initVideoReels();
+    }
+}
+
+// All the video reels logic is now contained in this function
+function initVideoReels() {
+    const videoReelsContainer = document.querySelector('.video-reels-container');
+    if (!videoReelsContainer) return; // Exit if the container doesn't exist
+
+    const videoReels = Array.from(videoReelsContainer.querySelectorAll('.video-reel'));
+    if (videoReels.length === 0) return; // Exit if there are no reels
+
+    const prevBtn = videoReelsContainer.querySelector('.video-nav-left');
+    const nextBtn = videoReelsContainer.querySelector('.video-nav-right');
+    const indicators = videoReelsContainer.querySelectorAll('.video-indicator');
+    
+    let currentVideo = 1; // Start with the middle video as active
+    let players = [];
+    let readyPlayerCount = 0;
+
+    // Create players for each reel
+    videoReels.forEach((reel, index) => {
+        const videoId = reel.getAttribute('data-video-id');
+        if (videoId) {
+            const videoWrapper = document.createElement('div');
+            videoWrapper.classList.add('video-wrapper');
+            reel.appendChild(videoWrapper);
+
+            players[index] = new YT.Player(videoWrapper, {
+                host: 'https://www.youtube-nocookie.com',
+                videoId: videoId,
+                playerVars: {
+                    'autoplay': 0,
+                    'controls': 0,
+                    'autohide': 1,
+                    'showinfo': 0,
+                    'modestbranding': 1,
+                    'loop': 1,
+                    'playlist': videoId,
+                    'rel': 0,
+                    'iv_load_policy': 3,
+                    'origin': window.location.origin
+                },
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+    });
+
+    function onPlayerReady(event) {
+        event.target.mute();
+        readyPlayerCount++;
+        if (readyPlayerCount === videoReels.length) {
+            requestAnimationFrame(() => {
+                videoReelsContainer.style.opacity = 1;
+                if (players[currentVideo] && typeof players[currentVideo].playVideo === 'function') {
+                    players[currentVideo].playVideo();
+                }
+            });
+        }
+    }
+
+    function updateCarousel() {
+        const total = videoReels.length;
+        const isMobile = window.innerWidth <= 768;
+
+        videoReels.forEach((reel, i) => {
+            const player = players[i];
+            const prevIndex = (currentVideo - 1 + total) % total;
+            const nextIndex = (currentVideo + 1) % total;
+
+            if (player && typeof player.pauseVideo === 'function') {
+                player.pauseVideo();
+            }
+            reel.classList.remove('active');
+
+            if (i === currentVideo) {
+                reel.style.transform = 'translateX(0) scale(1)';
+                reel.style.opacity = 1;
+                reel.style.zIndex = 10;
+                reel.classList.add('active');
+                if (player && typeof player.playVideo === 'function') {
+                    player.playVideo();
+                }
+            } else if (!isMobile && i === prevIndex) {
+                reel.style.transform = 'translateX(-220px) scale(0.8)';
+                reel.style.opacity = 0.5;
+                reel.style.zIndex = 5;
+            } else if (!isMobile && i === nextIndex) {
+                reel.style.transform = 'translateX(220px) scale(0.8)';
+                reel.style.opacity = 0.5;
+                reel.style.zIndex = 5;
+            } else {
+                reel.style.transform = 'scale(0.5)';
+                reel.style.opacity = 0;
+                reel.style.zIndex = 0;
+            }
+        });
+
+        indicators.forEach((indicator, i) => {
+            indicator.classList.toggle('active', i === currentVideo);
+        });
+    }
+
+    function showVideo(newIndex) {
+        if (newIndex < 0 || newIndex >= videoReels.length) return;
+        currentVideo = newIndex;
+        updateCarousel();
+    }
+    
+    function nextVideo() {
+        showVideo((currentVideo + 1) % videoReels.length);
+    }
+
+    function prevVideo() {
+        showVideo((currentVideo - 1 + videoReels.length) % videoReels.length);
+    }
+
+    // --- Event Listeners ---
+    window.addEventListener('resize', updateCarousel);
+    if (nextBtn) nextBtn.addEventListener('click', nextVideo);
+    if (prevBtn) prevBtn.addEventListener('click', prevVideo);
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => showVideo(index));
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') nextVideo();
+        if (e.key === 'ArrowLeft') prevVideo();
+    });
+
+    let touchStartX = 0;
+    videoReelsContainer.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+    videoReelsContainer.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0].screenX;
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) nextVideo(); // Swipe left
+            else prevVideo(); // Swipe right
+        }
+    });
+
+    // Set initial state without transitions to prevent flash of unstyled content
+    videoReels.forEach(reel => { reel.style.transition = 'none'; });
+    updateCarousel();
+    setTimeout(() => {
+        videoReels.forEach(reel => { 
+            reel.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'; 
+        });
+    }, 50);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    // Set DOM ready flag and attempt to initialize reels
+    domReady = true;
+    tryInitVideoReels();
+
+    // --- All other DOM-dependent scripts go here ---
     const menuToggle = document.getElementById('menu-toggle');
     const mainNav = document.getElementById('main-nav');
 
-    menuToggle.addEventListener('click', () => {
-        mainNav.classList.toggle('active');
-        menuToggle.classList.toggle('active');
-    });
+    if (menuToggle && mainNav) {
+        menuToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+    }
 
-    // Close mobile menu when a link is clicked
     document.querySelectorAll('.main-nav a').forEach(link => {
         link.addEventListener('click', () => {
             if (mainNav.classList.contains('active')) {
@@ -17,197 +191,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Sticky Header
     const header = document.querySelector('header');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
-
-    // Video Reels Functionality
-    const videoReelsContainer = document.querySelector('.video-reels-container');
-    if (videoReelsContainer) {
-        const videoReels = Array.from(videoReelsContainer.querySelectorAll('.video-reel'));
-        const prevBtn = videoReelsContainer.querySelector('.video-nav-left');
-        const nextBtn = videoReelsContainer.querySelector('.video-nav-right');
-        const indicators = videoReelsContainer.querySelectorAll('.video-indicator');
-        
-        let currentVideo = 1; // Start with the middle video as active
-        let players = [];
-        let readyPlayerCount = 0;
-        const iframes = videoReelsContainer.querySelectorAll('iframe');
-        const totalIframes = iframes.length;
-
-        // Set initial positions immediately to prevent FOUC
-        videoReels.forEach(reel => { reel.style.transition = 'none'; });
-        updateCarousel();
-        // Re-enable transitions after a short delay, so they are ready for user interaction
-        setTimeout(() => {
-            videoReels.forEach(reel => { 
-                reel.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'; 
-            });
-        }, 50);
-
-        window.onYouTubeIframeAPIReady = function() {
-            videoReels.forEach((reel, index) => {
-                const videoId = reel.getAttribute('data-video-id');
-                if (videoId) {
-                    // Create a wrapper for the iframe to control aspect ratio
-                    const videoWrapper = document.createElement('div');
-                    videoWrapper.classList.add('video-wrapper');
-                    reel.appendChild(videoWrapper);
-
-                    players[index] = new YT.Player(videoWrapper, {
-                        host: 'https://www.youtube-nocookie.com',
-                        videoId: videoId,
-                        playerVars: {
-                            'autoplay': 0, // Autoplay is handled by updateCarousel
-                            'controls': 0, /* Отключаем панель управления */
-                            'autohide': 1,
-                            'showinfo': 0,
-                            'modestbranding': 1,
-                            'loop': 1,
-                            'playlist': videoId, // Required for loop
-                            'rel': 0,
-                            'iv_load_policy': 3,
-                            'origin': window.location.origin
-                        },
-                        events: {
-                            'onReady': onPlayerReady
-                        }
-                    });
-                }
-            });
-        };
-
-        function onPlayerReady(event) {
-            event.target.mute();
-            readyPlayerCount++;
-            if (readyPlayerCount === videoReels.length) {
-                // All players are ready, now make the container visible.
-                requestAnimationFrame(() => {
-                    videoReelsContainer.style.opacity = 1;
-                    // Ensure the active video starts playing
-                    if (players[currentVideo] && typeof players[currentVideo].playVideo === 'function') {
-                        players[currentVideo].playVideo();
-                    }
-                });
+    if (header) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
             }
-        }
-
-        function updateCarousel() {
-            const total = videoReels.length;
-            const isMobile = window.innerWidth <= 768;
-
-            videoReels.forEach((reel, i) => {
-                const player = players[i];
-                const prevIndex = (currentVideo - 1 + total) % total;
-                const nextIndex = (currentVideo + 1) % total;
-
-                // Stop all videos first
-                if (player && typeof player.pauseVideo === 'function') {
-                    player.pauseVideo();
-                }
-                reel.classList.remove('active');
-
-                if (i === currentVideo) {
-                    reel.style.transform = 'translateX(0) scale(1)';
-                    reel.style.opacity = 1;
-                    reel.style.zIndex = 10;
-                    reel.classList.add('active');
-                    if (player && typeof player.playVideo === 'function') {
-                        player.playVideo();
-                    }
-                } else if (!isMobile && i === prevIndex) {
-                    reel.style.transform = 'translateX(-220px) scale(0.8)';
-                    reel.style.opacity = 0.5;
-                    reel.style.zIndex = 5;
-                } else if (!isMobile && i === nextIndex) {
-                    reel.style.transform = 'translateX(220px) scale(0.8)';
-                    reel.style.opacity = 0.5;
-                    reel.style.zIndex = 5;
-                } else {
-                    reel.style.transform = 'scale(0.5)'; // Keep them small but hidden
-                    reel.style.opacity = 0;
-                    reel.style.zIndex = 0;
-                }
-            });
-
-            indicators.forEach((indicator, i) => {
-                indicator.classList.toggle('active', i === currentVideo);
-            });
-        }
-
-        // Add event listener to re-calculate on resize
-        window.addEventListener('resize', updateCarousel);
-
-        function showVideo(newIndex) {
-            if (newIndex < 0 || newIndex >= videoReels.length) return;
-            currentVideo = newIndex;
-            updateCarousel();
-        }
-        
-        function nextVideo() {
-            const next = (currentVideo + 1) % videoReels.length;
-            showVideo(next);
-        }
-
-        function prevVideo() {
-            const prev = (currentVideo - 1 + videoReels.length) % videoReels.length;
-            showVideo(prev);
-        }
-        
-        // Navigation event listeners
-        if (nextBtn) nextBtn.addEventListener('click', nextVideo);
-        if (prevBtn) prevBtn.addEventListener('click', prevVideo);
-        
-        // Indicator clicks
-        indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => {
-                if (index !== currentVideo) {
-                    showVideo(index);
-                }
-            });
         });
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') nextVideo();
-            if (e.key === 'ArrowLeft') prevVideo();
-        });
-        
-        // Touch/swipe support
-        let touchStartX = 0;
-        let touchEndX = 0;
-        
-        videoReelsContainer.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-        
-        videoReelsContainer.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
-        
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            const diff = touchStartX - touchEndX;
-            
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
-                    nextVideo(); // Swipe left - next video
-                } else {
-                    prevVideo(); // Swipe right - prev video
-                }
-            }
-        }
-        
-        // The carousel is initialized in onPlayerReady to ensure players are loaded.
-        // Add a script tag for the YouTube API to your HTML file:
-        // <script src="https://www.youtube.com/iframe_api"></script>
     }
 
     // Simple Slider for About Section
@@ -420,24 +412,66 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Add zoom functionality to modal image
+        // --- Enhanced Zoom Functionality for Desktop (Click) and Mobile (Pinch) ---
+        let isZoomed = false;
+        let initialDistance = null;
+        let initialScale = 1;
+
+        // Desktop Click-to-Zoom
         modalImg.addEventListener('click', function(e) {
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            if (this.style.transform && this.style.transform.includes('scale')) {
-                // Reset zoom
-                this.style.transform = 'scale(1)';
-                this.style.transformOrigin = 'center center';
-                this.style.cursor = 'zoom-in';
-            } else {
-                // Zoom in at click point
+            // Prevent click zoom if it was a pinch gesture
+            if (e.detail > 1 || initialDistance !== null) return;
+
+            isZoomed = !isZoomed;
+            if (isZoomed) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
                 const xPercent = (x / rect.width) * 100;
                 const yPercent = (y / rect.height) * 100;
                 this.style.transformOrigin = `${xPercent}% ${yPercent}%`;
-                this.style.transform = 'scale(2)';
+                this.style.transform = `scale(2)`;
                 this.style.cursor = 'zoom-out';
+            } else {
+                this.style.transform = 'scale(1)';
+                this.style.transformOrigin = 'center center';
+                this.style.cursor = 'zoom-in';
+            }
+        });
+
+        // Mobile Pinch-to-Zoom
+        modalImg.addEventListener('touchstart', function(e) {
+            if (e.touches.length === 2) {
+                e.preventDefault();
+                initialDistance = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+                const transform = window.getComputedStyle(this).transform;
+                if (transform !== 'none') {
+                    const matrix = new DOMMatrix(transform);
+                    initialScale = matrix.m11; // Get current scale
+                } else {
+                    initialScale = 1;
+                }
+            }
+        });
+
+        modalImg.addEventListener('touchmove', function(e) {
+            if (e.touches.length === 2 && initialDistance !== null) {
+                e.preventDefault();
+                const currentDistance = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+                const scale = initialScale * (currentDistance / initialDistance);
+                // Clamp scale between 1x and 4x
+                const clampedScale = Math.max(1, Math.min(scale, 4));
+                this.style.transform = `scale(${clampedScale})`;
+                isZoomed = clampedScale > 1;
+            }
+        });
+
+        modalImg.addEventListener('touchend', function(e) {
+            initialDistance = null; // Reset on touchend
+            if (!isZoomed) {
+                 this.style.transform = 'scale(1)';
+                 this.style.transformOrigin = 'center center';
+                 this.style.cursor = 'zoom-in';
             }
         });
 

@@ -436,7 +436,7 @@ img {
     .menu-toggle {
         display: block;
         position: relative;
-        right: 50px;
+        right: 20px; /* Adjusted for better mobile positioning */
     }
 
     .menu-toggle.active .hamburger {
@@ -472,7 +472,7 @@ img {
     display: flex;
     justify-content: center; /* Центрируем контент */
     align-items: center;
-    min-height: calc(100vh - 80px); /* Full height minus header */
+    min-height: 100vh; /* Full viewport height */
 }
 
 .hero .container {
@@ -1264,11 +1264,12 @@ img {
 .close-button {
     color: #aaa;
     position: absolute;
-    top: 15px;
-    right: 35px;
-    font-size: 28px;
+    top: 10px;
+    right: 15px;
+    font-size: 32px; /* Slightly larger for easier tapping */
     font-weight: bold;
     cursor: pointer;
+    z-index: 10;
 }
 
 .close-button:hover,
@@ -1313,21 +1314,36 @@ img {
     position: absolute;
     right: 0;
     top: 0;
-    width: 30%;
+    width: 240px; /* увеличить размер */
     height: 100%;
     background-image: url('../изображения/Mask%20group.png');
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
     background-position: right center;
-    transform: scaleX(-1);
+    transform: scaleX(-1); /* зеркально */
     z-index: 1;
     pointer-events: none; /* Make it non-interactive */
-    image-rendering: smooth; /* Improve scaling quality */
+    opacity: 0.5;
 }
 
 .section {
     padding: 80px 0;
     background-color: #fff;
 }
+.section > .container {
+    position: relative;
+}
+
+@media (max-width: 768px) {
+  #about::after {
+    width: 150px;
+    height: 100%;
+    top: 240px;
+
+  }
+}
+
+
 .section:nth-child(odd) {
     background-color: var(--light-color);
 }
@@ -1349,6 +1365,8 @@ img {
     background-color: var(--primary-color);
     margin: 10px auto 0;
 }
+
+/* About Section */
 
 /* About Section */
 .about-grid {
@@ -1476,27 +1494,267 @@ img {
 }
 
 /* Advantages Section */
+
+/* Advantage patterns in section */
+#advantages {
+    position: relative;
+}
+.advantage-pattern {
+    position: absolute;
+    width: 470px;
+    height: 470px;
+    background-image: url('../изображения/Mask%20group.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.4;
+    z-index: 1002;
+    pointer-events: none;
+}
+.advantage-pattern-1 {
+    left: 0;
+    top: 500px;
+}
+.advantage-pattern-2 {
+    right: 0;
+    top: 1100px;
+}
+.advantage-pattern-3 {
+    left: 0;
+    top: 1800px;
+}
+.advantage-pattern-4 {
+    right: 0;
+    top: 2600px;
+}
+
+
+
+
+
+.advantage-pattern-1 {
+    left: 0;
+    top: 258px;
+}
+.advantage-pattern-2 {
+    right: 0;
+    top: 620px;
+    transform: scaleX(-1);
+}
+.advantage-pattern-3 {
+    left: 0;
+    top: 990px;
+}
+.advantage-pattern-4 {
+    right: 0;
+    top: 1360px;
+    transform: scaleX(-1);
+}
+
+
+@media (max-width: 768px) {
+    /* Мобильная версия: настройте top и размеры для каждого паттерна индивидуально */
+    .advantage-pattern-1, .advantage-pattern-2, .advantage-pattern-3, .advantage-pattern-4 {
+      width: 280px; /* уменьшенный размер, измените по необходимости */
+      height: 280px;
+    }
+    .advantage-pattern-1 {
+      top: 730px; /* измените по необходимости */
+
+    }
+    .advantage-pattern-2 {
+      top: 1480px; /* измените по необходимости */
+
+    }
+    .advantage-pattern-3 {
+      top: 2130px; /* измените по необходимости */
+
+    }
+    .advantage-pattern-4 {
+      top: 2880px; /* измените по необходимости */
+   
+    }
+  }
+
+@media (max-width: 755px) {
+  /* При 755px паттерны поднимаются выше */
+  .advantage-pattern-1 {
+    top: 700px;
+  }
+  .advantage-pattern-2 {
+    top: 1450px;
+  }
+  .advantage-pattern-3 {
+    top: 2100px;
+  }
+  .advantage-pattern-4 {
+    top: 2850px;
+  }
+}
+@media (max-width: 719px) {
+    /* При 755px паттерны поднимаются выше */
+    .advantage-pattern-1 {
+      top: 690px;
+    }
+    .advantage-pattern-2 {
+      top: 1420px;
+    }
+    .advantage-pattern-3 {
+      top: 2080px;
+    }
+    .advantage-pattern-4 {
+      top: 2780px;
+    }
+  }
+  @media (max-width: 725px) {
+
+    .advantage-pattern-3 {
+      top: 2070px;
+    }
+  }
+
+
+  @media (max-width: 711px) {
+
+    .advantage-pattern-3 {
+      top: 2050px;
+    }
+  }
+  @media (max-width: 700px) {
+
+    .advantage-pattern-3 {
+      top: 2030px;
+    }
+  }
+  @media (max-width: 687px) {
+
+    .advantage-pattern-3 {
+      top: 2010px;
+    }
+    .advantage-pattern-2 {
+      top: 1400px;
+    }
+    .advantage-pattern-4 {
+      top: 2700px;
+    }
+  }
+  @media (max-width: 627px) {
+
+    .advantage-pattern-3 {
+      top: 1980px;
+    }
+    .advantage-pattern-2 {
+      top: 1350px;
+    }
+
+  }
+
+  @media (max-width: 610px) {
+
+    .advantage-pattern-3 {
+      top: 1960px;
+    }
+  }
+
+  @media (max-width: 582px) {
+
+    .advantage-pattern-3 {
+      top: 1910px;
+    }
+    .advantage-pattern-2 {
+      top: 1320px;
+    }
+    .advantage-pattern-4 {
+      top: 2620px;
+    }
+  }
+
+  @media (max-width: 566px) {
+
+    .advantage-pattern-3 {
+      top: 1890px;
+    }
+  }
+  @media (max-width: 542px) {
+
+    .advantage-pattern-3 {
+      top: 1870px;
+    }
+    .advantage-pattern-2 {
+      top: 1280px;
+    }
+    .advantage-pattern-4 {
+      top: 2580px;
+    }
+  }
+
+  @media (max-width: 502px) {
+
+    .advantage-pattern-3 {
+      top: 1850px;
+    }
+
+    .advantage-pattern-4 {
+      top: 2480px;
+    }
+  }
+
+  @media (max-width: 482px) {
+
+    .advantage-pattern-3 {
+      top: 1830px;
+    }
+
+    .advantage-pattern-4 {
+      top: 2460px;
+    }
+  }
+
+  @media (max-width: 459px) {
+
+    .advantage-pattern-3 {
+      top: 1790px;
+    }
+    .advantage-pattern-2 {
+      top: 1220px;
+    }
+    .advantage-pattern-1 {
+      top: 600px;
+    }
+  }
+  @media (max-width: 360px) {
+
+    .advantage-pattern-3 {
+      top: 1850px;
+    }
+    .advantage-pattern-2 {
+      top: 1320px;
+    }
+
+  }
+  @media (max-width: 356px) {
+
+    .advantage-pattern-3 {
+      top: 1990px;
+    }
+    .advantage-pattern-2 {
+      top: 1300px;
+    }
+    .advantage-pattern-4 {
+      top: 2620px;
+    }    
+  }
+  @media (max-width: 319px) {
+
+    .advantage-pattern-2 {
+      top: 1350px;
+    }
+
+  }
 #advantages {
     position: relative;
 }
 
-/* Large static decorative pattern on the left with gray tones */
-#advantages::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 40%;
-    height: 100%;
-    background-image: url('../изображения/Mask%20group.png');
-    background-size: cover;
-    background-position: left center;
-    opacity: 0.4;
-    z-index: 1;
-    pointer-events: none;
-    filter: grayscale(100%) contrast(0.8) brightness(0.7);
-    image-rendering: smooth;
-}
+
 
 .advantages-list {
     display: flex;
